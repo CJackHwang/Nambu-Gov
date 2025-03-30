@@ -1,0 +1,125 @@
+// src/assets/styles/main.scss
+
+// 1. 引入工具 (变量、混入等) - 必须最先
+@import 'utils/variables';
+@import 'utils/mixins';
+
+// 2. 引入基础样式 (重置、排版、基础元素) - 在全局样式之前
+@import 'base/reset';
+@import 'base/typography'; // 引入排版样式
+@import 'base/elements'; // 引入其他基础元素样式
+
+// 3. 引入组件基础样式 (如按钮) - 可选放在这里或更后面
+@import '../components/button'; // 注意路径层级，如果 button.scss 在 components 下
+
+// 4. 全局样式定义 (例如 body, #app 的特定覆盖或附加样式)
+// body 基础样式已移至 _typography.scss
+// body { ... }
+
+// 示例暗色主题支持 (保持不变)
+body.dark-theme {
+  // 暗色主题覆盖变量
+  $color-background: $color-dark-background;
+  $color-text: $color-dark-text;
+  $color-secondary: $color-dark-secondary; // 也可能需要调整次要颜色
+  $headings-color: $color-text; // 暗色模式下标题可能用基础文字颜色更好？
+  $link-color: $color-accent; // 暗色下链接用强调色
+
+  // 重新应用受变量影响的样式
+  background-color: $color-background;
+  color: $color-text;
+
+  h1, h2, h3, h4, h5, h6 {
+    color: $headings-color;
+  }
+
+  a {
+    color: $link-color;
+    &:hover {
+      color: darken($link-color, 10%);
+    }
+  }
+
+  blockquote {
+    border-left-color: lighten($color-secondary, 20%);
+    background-color: lighten($color-secondary, 10%);
+    color: lighten($color-text-muted, 10%);
+  }
+
+  code {
+     background-color: rgba($color-secondary, 0.3);
+     color: $color-accent;
+  }
+
+  pre {
+    background-color: lighten($color-secondary, 5%);
+    border-color: lighten($color-secondary, 15%);
+    color: $color-text;
+  }
+
+  hr {
+    border-top-color: lighten($color-secondary, 20%);
+  }
+
+  table, th, td {
+    border-color: lighten($color-secondary, 20%);
+  }
+
+  thead th {
+    border-bottom-color: lighten($color-secondary, 30%);
+  }
+
+  // 暗色主题下的按钮样式调整
+  .btn {
+    // 可能需要调整主按钮在暗色下的颜色
+    &:focus, &.focus {
+      box-shadow: 0 0 0 0.2rem rgba($color-primary, 0.5); // 保持一致或调整
+    }
+  }
+  .btn-secondary {
+    color: $link-color; // 次按钮轮廓和文字用链接色
+    border-color: $link-color;
+
+    &:hover {
+      color: $color-dark-background; // 悬停时文字变暗
+      background-color: $link-color;
+      border-color: $link-color;
+    }
+     &:focus, &.focus {
+        box-shadow: 0 0 0 0.2rem rgba($link-color, 0.5);
+     }
+     // ... active 状态也可能需要调整
+  }
+
+  .btn-link {
+    color: $link-color;
+    &:hover {
+      color: darken($link-color, 10%);
+    }
+    &:disabled, &.disabled {
+      color: lighten($color-text-muted, 10%);
+    }
+  }
+}
+
+// 5. 可以添加一些全局的辅助类 (如果需要)
+.container {
+  max-width: $container-max-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $spacing-unit; // 调整为变量
+  padding-right: $spacing-unit; // 调整为变量
+  width: 100%;
+}
+
+// 示例：一些简单的间距辅助类
+.mt-1 { margin-top: $spacing-unit * 0.25 !important; }
+.mt-2 { margin-top: $spacing-unit * 0.5 !important; }
+.mt-3 { margin-top: $spacing-unit !important; }
+.mt-4 { margin-top: $spacing-unit * 1.5 !important; }
+.mt-5 { margin-top: $spacing-unit * 3 !important; }
+// ... mb, ml, mr, pt, pb, pl, pr ...
+.mb-3 { margin-bottom: $spacing-unit !important; }
+
+.text-center { text-align: center !important; }
+.text-right { text-align: right !important; }

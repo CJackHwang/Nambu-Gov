@@ -1,0 +1,50 @@
+// src/assets/styles/base/_elements.scss
+
+@import '../utils/variables';
+
+// --- 水平分割线 ---
+hr {
+  margin: $spacing-unit * 1.5 0; // 上下边距
+  border: 0;
+  border-top: 1px solid lighten($color-secondary, 35%); // 使用柔和的颜色
+}
+
+// --- 图片 ---
+img {
+  vertical-align: middle; // 去除图片底部默认空隙
+  max-width: 100%; // 响应式图片
+  height: auto;
+  border-style: none; // 去除 IE 默认边框
+}
+
+// --- 表格 (非常基础的样式) ---
+table {
+  width: 100%;
+  margin-bottom: $paragraph-margin-bottom;
+  border-collapse: collapse; // 合并边框
+  border-spacing: 0;
+  color: $color-text;
+}
+
+th,
+td {
+  padding: $spacing-unit / 2; // 单元格内边距
+  text-align: left; // 默认左对齐
+  vertical-align: top; // 顶部对齐
+  border-top: 1px solid lighten($color-secondary, 35%); // 行分隔线
+}
+
+thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid lighten($color-secondary, 20%); // 表头下边框加粗
+  font-weight: $font-weight-semibold; // 表头文字加粗
+}
+
+tbody + tbody {
+  border-top: 2px solid lighten($color-secondary, 20%); // 如果有多个 tbody，分隔它们
+}
+
+// 可选：斑马纹表格 (取消注释以启用)
+// tbody tr:nth-of-type(odd) {
+//   background-color: rgba($color-secondary, 0.03);
+// }
