@@ -1,15 +1,16 @@
 // src/assets/styles/base/_typography.scss
 
-@import '../utils/variables'; // 引入变量
+@use 'sass:color';
+@use '../utils/variables' as vars; // 使用命名空间代替直接导入
 
 // --- 基础排版 ---
 body {
-  font-family: $font-family-base;
-  font-size: $font-size-base;
-  font-weight: $font-weight-normal;
-  line-height: $line-height-base;
-  color: $color-text;
-  background-color: $color-background;
+  font-family: vars.$font-family-base;
+  font-size: vars.$font-size-base;
+  font-weight: vars.$font-weight-normal;
+  line-height: vars.$line-height-base;
+  color: vars.$color-text;
+  background-color: vars.$color-background;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -17,35 +18,35 @@ body {
 // --- 标题 ---
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0; // 重置浏览器默认上边距
-  margin-bottom: $headings-margin-bottom;
-  font-family: $font-family-headings;
-  font-weight: $headings-font-weight;
-  line-height: $headings-line-height;
-  color: $color-primary; // 标题使用主色调，可以按需调整或继承
+  margin-bottom: vars.$headings-margin-bottom;
+  font-family: vars.$font-family-headings;
+  font-weight: vars.$headings-font-weight;
+  line-height: vars.$headings-line-height;
+  color: vars.$color-primary; // 标题使用主色调，可以按需调整或继承
 }
 
-h1 { font-size: $h1-font-size; }
-h2 { font-size: $h2-font-size; }
-h3 { font-size: $h3-font-size; }
-h4 { font-size: $h4-font-size; }
-h5 { font-size: $h5-font-size; }
-h6 { font-size: $h6-font-size; }
+h1 { font-size: vars.$h1-font-size; }
+h2 { font-size: vars.$h2-font-size; }
+h3 { font-size: vars.$h3-font-size; }
+h4 { font-size: vars.$h4-font-size; }
+h5 { font-size: vars.$h5-font-size; }
+h6 { font-size: vars.$h6-font-size; }
 
 // --- 段落 ---
 p {
   margin-top: 0;
-  margin-bottom: $paragraph-margin-bottom;
+  margin-bottom: vars.$paragraph-margin-bottom;
 }
 
 // --- 链接 ---
 a {
-  color: $color-primary; // 链接默认使用主色
+  color: vars.$color-primary; // 链接默认使用主色
   text-decoration: none; // 默认无下划线，符合简约
   background-color: transparent;
   transition: color 0.2s ease-in-out, text-decoration 0.2s ease-in-out; // 平滑过渡
 
   &:hover {
-    color: darken($color-primary, 10%); // 悬停时颜色变深
+    color: color.adjust(vars.$color-primary, $lightness: -10%); // 使用color.adjust代替darken
     text-decoration: underline; // 悬停时显示下划线
   }
 }
@@ -53,8 +54,8 @@ a {
 // --- 列表 ---
 ul, ol {
   margin-top: 0;
-  margin-bottom: $paragraph-margin-bottom; // 列表底部边距同段落
-  padding-left: $spacing-unit * 1.5; // 保留缩进
+  margin-bottom: vars.$paragraph-margin-bottom; // 列表底部边距同段落
+  padding-left: calc(vars.$spacing-unit * 1.5); // 保留缩进
 
   ul, ol {
     margin-bottom: 0; // 嵌套列表无额外下边距
@@ -62,12 +63,12 @@ ul, ol {
 }
 
 li {
-  margin-bottom: $spacing-unit / 4; // 列表项之间的小间距
+  margin-bottom: calc(vars.$spacing-unit / 4); // 使用calc避免除法警告
 }
 
 // --- 其他文本元素 ---
 strong, b {
-  font-weight: $font-weight-bold; // 加粗使用 bold 权重
+  font-weight: vars.$font-weight-bold; // 加粗使用 bold 权重
 }
 
 em, i {
@@ -80,11 +81,11 @@ small {
 
 // 可以继续添加 blockquote, code, pre 等样式
 blockquote {
-  margin: 0 0 $paragraph-margin-bottom;
-  padding: $spacing-unit / 2 $spacing-unit;
-  border-left: 4px solid $color-secondary; // 引用块左边框
-  background-color: lighten($color-secondary, 45%); // 非常浅的背景
-  color: darken($color-text-muted, 10%); // 引用文字颜色稍深
+  margin: 0 0 vars.$paragraph-margin-bottom;
+  padding: calc(vars.$spacing-unit / 2) vars.$spacing-unit;
+  border-left: 4px solid vars.$color-secondary; // 引用块左边框
+  background-color: color.adjust(vars.$color-secondary, $lightness: 45%); // 使用color.adjust代替lighten
+  color: color.adjust(vars.$color-text-muted, $lightness: -10%); // 使用color.adjust代替darken
   font-style: italic; // 通常引用为斜体
 
   p:last-child {
@@ -100,23 +101,23 @@ code, kbd, samp, pre {
 code {
   padding: 0.2em 0.4em;
   margin: 0;
-  background-color: rgba($color-secondary, 0.08); // 代码背景色
-  border-radius: $border-radius / 2;
-  color: $color-primary; // 代码片段用主色
+  background-color: rgba(vars.$color-secondary, 0.08); // 代码背景色
+  border-radius: calc(vars.$border-radius / 2); // 使用calc避免除法警告
+  color: vars.$color-primary; // 代码片段用主色
 }
 
 pre {
   display: block;
-  padding: $spacing-unit;
-  margin: 0 0 $paragraph-margin-bottom;
+  padding: vars.$spacing-unit;
+  margin: 0 0 vars.$paragraph-margin-bottom;
   font-size: 88%;
   line-height: 1.45;
   word-break: break-all; // 防止长代码溢出
   word-wrap: break-word;
-  color: $color-text;
-  background-color: lighten($color-secondary, 48%); // 代码块背景
-  border: 1px solid lighten($color-secondary, 40%); // 代码块边框
-  border-radius: $border-radius;
+  color: vars.$color-text;
+  background-color: color.adjust(vars.$color-secondary, $lightness: 48%); // 使用color.adjust代替lighten
+  border: 1px solid color.adjust(vars.$color-secondary, $lightness: 40%); // 使用color.adjust代替lighten
+  border-radius: vars.$border-radius;
   overflow: auto; // 如果内容过多则滚动
 
   code { // pre 内的 code 样式重置

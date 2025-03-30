@@ -1,45 +1,94 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
+import { h } from 'vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import HomePage from '@/pages/HomePage.vue';
 import WikiIndexPage from '@/pages/wiki/WikiIndexPage.vue'; // 修正了拼写
+import TestPage from '@/pages/TestPage.vue'; // 引入测试页面
+import DirectTestPage from '@/pages/DirectTestPage.vue'; // 引入无布局测试页面
+import ExternalWikiPage from '@/pages/ExternalWikiPage.vue'; // 引入外部Wiki页面
+import PoliciesPage from '@/pages/PoliciesPage.vue'; // 引入政策法规页面
+import OrganizationPage from '@/pages/OrganizationPage.vue'; // 引入组织架构页面
+import ServicePage from '@/pages/ServicePage.vue'; // 引入公共服务页面
+import AboutPage from '@/pages/AboutPage.vue'; // 引入关于南武页面
+import NotFoundPage from '@/pages/NotFoundPage.vue'; // 引入404页面
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    component: DefaultLayout, // 使用默认布局
-    children: [
-      {
-        path: '', // 默认子路由 (首页)
-        name: 'Home',
-        component: HomePage,
-        meta: { title: '首页 - 南武民主共和国' } // 添加页面标题元信息
-      },
-      {
-        path: 'wiki', // Wiki 板块
-        name: 'WikiIndex',
-        component: WikiIndexPage,
-        meta: { title: '百科 - 南武民主共和国' }
-      },
-      // --- 可以在这里为 DefaultLayout 添加更多子路由 ---
-      // {
-      //   path: 'about',
-      //   name: 'About',
-      //   component: () => import('@/pages/AboutPage.vue'), // 懒加载示例
-      //   meta: { title: '关于 - 南武民主共和国' }
-      // }
-    ]
+    name: 'Home',
+    component: () => {
+      return h(DefaultLayout, () => h(HomePage));
+    },
+    meta: { title: '首页 - 南武民主共和国' }
   },
-  // --- 可以添加其他布局或无布局的路由 ---
-  // {
-  //   path: '/login',
-  //   name: 'Login',
-  //   component: () => import('@/pages/LoginPage.vue')
-  // },
+  {
+    path: '/wiki',
+    name: 'WikiIndex',
+    component: () => {
+      return h(DefaultLayout, () => h(WikiIndexPage));
+    },
+    meta: { title: '百科 - 南武民主共和国' }
+  },
+  {
+    path: '/test',
+    name: 'Test',
+    component: () => {
+      return h(DefaultLayout, () => h(TestPage));
+    },
+    meta: { title: '测试页面 - 南武民主共和国' }
+  },
+  {
+    path: '/external-wiki',
+    name: 'ExternalWiki',
+    component: () => {
+      return h(DefaultLayout, () => h(ExternalWikiPage));
+    },
+    meta: { title: '外部Wiki - 南武民主共和国' }
+  },
+  {
+    path: '/policies',
+    name: 'Policies',
+    component: () => {
+      return h(DefaultLayout, () => h(PoliciesPage));
+    },
+    meta: { title: '政策法规 - 南武民主共和国' }
+  },
+  {
+    path: '/organization',
+    name: 'Organization',
+    component: () => {
+      return h(DefaultLayout, () => h(OrganizationPage));
+    },
+    meta: { title: '政府组织架构 - 南武民主共和国' }
+  },
+  {
+    path: '/services',
+    name: 'Services',
+    component: () => {
+      return h(DefaultLayout, () => h(ServicePage));
+    },
+    meta: { title: '公共服务 - 南武民主共和国' }
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: () => {
+      return h(DefaultLayout, () => h(AboutPage));
+    },
+    meta: { title: '关于南武 - 南武民主共和国' }
+  },
+  // 无布局测试页面
+  {
+    path: '/direct-test',
+    name: 'DirectTest',
+    component: DirectTestPage,
+    meta: { title: '无布局测试 - 南武民主共和国' }
+  },
   // --- 404 Not Found ---
   {
     path: '/:pathMatch(.*)*', // 捕获所有未匹配的路由
     name: 'NotFound',
-    component: () => import('@/pages/NotFoundPage.vue') // 需要创建 NotFoundPage.vue
+    component: NotFoundPage
   }
 ];
 

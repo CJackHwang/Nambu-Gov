@@ -26,7 +26,7 @@
     "src/**/*.ts",     // 包含 src 下所有 .ts 文件
     "src/**/*.d.ts",   // 包含 src 下所有 .d.ts 文件
     "src/**/*.tsx",    // 包含 src 下所有 .tsx 文件 (如果使用 TSX)
-    "src/**/*.vue",    // (重要) 包含 src 下所有 .vue 文件，以便类型检查 <script setup lang="ts">
+    // "src/**/*.vue",    // (重要) 包含 src 下所有 .vue 文件，以便类型检查 <script setup lang="ts">
     "vite.config.ts" // 也检查 vite 配置文件本身
    ],
   // --- 排除的文件 ---

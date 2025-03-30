@@ -1,0 +1,67 @@
+// src/assets/styles/utils/_mixins.scss
+
+@use 'sass:color';
+@use 'variables' as vars;
+
+// 响应式断点 Mixins
+@mixin mobile {
+  @media (max-width: 767px) { @content; }
+}
+
+@mixin tablet {
+  @media (min-width: 768px) and (max-width: 1023px) { @content; }
+}
+
+@mixin desktop {
+  @media (min-width: 1024px) { @content; }
+}
+
+// 清除浮动
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+// 强调文本效果
+@mixin text-emphasis {
+  color: vars.$color-primary;
+  font-weight: vars.$font-weight-semibold;
+}
+
+// 盒子阴影
+@mixin box-shadow($level: 1) {
+  @if $level == 1 {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  } @else if $level == 2 {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  } @else if $level == 3 {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  }
+}
+
+// 过渡效果
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+  transition: $property $duration $timing;
+}
+
+// 文本截断（省略号）
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Flex 布局助手
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,106 @@
+// src/assets/styles/components/_button.scss
+
+@use 'sass:color';
+@use '../utils/variables' as vars;
+@use '../utils/mixins' as mix;
+
+// --- 基础按钮样式 ---
+// 可以应用 .btn 类来获得按钮样式
+.btn {
+  display: inline-block;
+  font-family: vars.$font-family-base;
+  font-weight: vars.$font-weight-medium; // 按钮文字中等粗细
+  font-size: vars.$font-size-base;
+  line-height: vars.$line-height-base;
+  color: vars.$color-text-light; // 默认按钮文字为浅色
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none; // 禁止选中文本
+  background-color: vars.$color-primary; // 默认使用主色调
+  border: 1px solid vars.$color-primary; // 边框与背景色一致
+  padding: calc(vars.$spacing-unit * 0.5) calc(vars.$spacing-unit * 1); // 上下 8px，左右 16px
+  border-radius: vars.$border-radius; // 圆角
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  &:hover {
+    background-color: color.adjust(vars.$color-primary, $lightness: -8%);
+    border-color: color.adjust(vars.$color-primary, $lightness: -10%);
+    color: vars.$color-text-light;
+    text-decoration: none; // 确保悬停时无下划线
+  }
+
+  &:focus, &.focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(vars.$color-primary, 0.5); // 模拟 Bootstrap 的 focus 效果
+  }
+
+  &:active, &.active {
+    background-color: color.adjust(vars.$color-primary, $lightness: -12%);
+    border-color: color.adjust(vars.$color-primary, $lightness: -15%);
+    // 可选：添加按下效果
+    // transform: translateY(1px);
+  }
+
+  &:disabled,
+  &.disabled {
+    pointer-events: none; // 禁用事件
+    opacity: 0.65; // 半透明
+    // 可选：覆盖 focus 阴影
+    // box-shadow: none;
+  }
+}
+
+// --- 按钮变种 (示例) ---
+
+// 次要按钮 (例如：灰色轮廓)
+.btn-secondary {
+  color: vars.$color-primary;
+  background-color: transparent;
+  border-color: vars.$color-primary;
+
+  &:hover {
+    color: vars.$color-text-light;
+    background-color: vars.$color-primary;
+    border-color: vars.$color-primary;
+  }
+
+  &:focus, &.focus {
+     box-shadow: 0 0 0 0.2rem rgba(vars.$color-primary, 0.5);
+  }
+
+  &:active, &.active {
+    color: vars.$color-text-light;
+    background-color: color.adjust(vars.$color-primary, $lightness: -12%);
+    border-color: color.adjust(vars.$color-primary, $lightness: -15%);
+  }
+}
+
+// 链接式按钮 (看起来像链接，但行为像按钮)
+.btn-link {
+  font-weight: vars.$font-weight-normal;
+  color: vars.$color-primary;
+  background-color: transparent;
+  border-color: transparent;
+  text-decoration: underline; // 链接样式带下划线
+
+  &:hover {
+    color: color.adjust(vars.$color-primary, $lightness: -10%);
+    text-decoration: underline;
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  &:focus, &.focus {
+    text-decoration: underline;
+    border-color: transparent;
+    box-shadow: none; // 链接按钮通常不需要 focus 阴影
+  }
+
+  &:disabled, &.disabled {
+     color: vars.$color-text-muted;
+     text-decoration: none;
+  }
+}
+
+// 可以添加更多变种： .btn-success, .btn-danger, .btn-lg, .btn-sm 等
